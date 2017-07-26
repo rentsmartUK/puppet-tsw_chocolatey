@@ -15,7 +15,7 @@ class tsw_chocolatey (
   file { 'chocolatey_binary':
     ensure  => file,
     path    => "$chocolatey_binary_temp_path/chocolatey-$chocolatey_version.nupkg",
-    source  => "puppet:///modules/custom_chocolatey/chocolatey-$chocolatey_version.nupkg",
+    source  => "puppet:///modules/tsw_chocolatey/chocolatey-$chocolatey_version.nupkg",
   }
 
   class { 'chocolatey':
