@@ -26,11 +26,11 @@ class tsw_chocolatey (
     require                 => File['chocolatey_binary'],
   }
 
-  chocolateysource { 'chocolcatey':
-    ensure   => present,
-    location => $chocolatey_packages_source,
-    priority => 1,
-  }
+  # chocolateysource { 'chocolatey':
+  #   ensure   => present,
+  #   location => $chocolatey_packages_source,
+  #   priority => 1,
+  # }
 
   # Cache location should be configured
   # chocolateyconfig {'cachelocation':
