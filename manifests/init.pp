@@ -4,9 +4,10 @@ class tsw_chocolatey (
   $chocolatey_version           = '0.10.7', # ensure the versions are available in the files/ directory
   $choco_install_location       = 'c:/bin/chocolatey',
   $chocolatey_packages_source   = 'https://chocolatey.org/api/v2/package/chocolatey/',
-  $chocolatey_binary_temp_path  = 'c:/temp',
 
 ){
+
+  $chocolatey_binary_temp_path  = 'c:/temp'
 
   file { $chocolatey_binary_temp_path:
     ensure  => directory,
