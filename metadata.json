@@ -1,5 +1,5 @@
 {
-  "name": "thinksmart-custom_chocolatey",
+  "name": "thinksmart-tsw_chocolatey",
   "version": "0.1.0",
   "author": "Javier Velasquez",
   "summary": "Module to install a custom chocolatey",
@@ -12,4 +12,3 @@
   ],
   "data_provider": null
 }
-

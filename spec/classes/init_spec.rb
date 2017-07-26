@@ -1,6 +1,6 @@
 require 'spec_helper'
-describe 'custom_chocolatey' do
+describe 'tsw_chocolatey' do
   context 'with default values for all parameters' do
-    it { should contain_class('custom_chocolatey') }
+    it { should contain_class('tsw_chocolatey') }
   end
 end

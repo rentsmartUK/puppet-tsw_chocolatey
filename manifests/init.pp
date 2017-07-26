@@ -1,10 +1,10 @@
-class custom_chocolatey (
+class tsw_chocolatey (
   # Variables Declaration
   # $chocolatey_download_url_base = lookup('profile::base::windows::requirements::chocolatey_download_url_base')
   $chocolatey_version           = '0.10.7', # ensure the versions are available in the files/ directory
   $choco_install_location       = 'c:/bin/chocolatey',
   $chocolatey_packages_source   = 'https://chocolatey.org/api/v2/package/chocolatey/',
-  $chocolatey_binary_path       = 'c:/temp',
+  $chocolatey_temp_binary_path  = 'c:/temp',
 
 ){
 
@@ -14,7 +14,7 @@ class custom_chocolatey (
 
   file { 'chocolatey_binary':
     ensure  => file,
-    path    => "$chocolatey_binary_path/chocolatey-$chocolatey_version.nupkg",
+    path    => "$chocolatey_temp_binary_path/chocolatey-$chocolatey_version.nupkg",
     source  => "puppet:///modules/custom_chocolatey/chocolatey-$chocolatey_version.nupkg",
   }
 
@@ -22,7 +22,7 @@ class custom_chocolatey (
     use_7zip                => false,
     log_output              => true,
     # chocolatey_download_url => "${chocolatey_download_url_base}/packages/chocolatey-${chocolatey_version}.nupkg",
-    chocolatey_download_url => "file:///$chocolatey_binary_path/chocolatey-$chocolatey_version.nupkg",
+    chocolatey_download_url => "file:///$chocolatey_temp_binary_path/chocolatey-$chocolatey_version.nupkg",
     require                 => File['chocolatey_binary'],
   }
 
