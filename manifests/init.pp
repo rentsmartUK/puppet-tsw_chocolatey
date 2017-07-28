@@ -4,18 +4,19 @@ class tsw_chocolatey (
   $chocolatey_version           = '0.10.7', # ensure the versions are available in the files/ directory
   $choco_install_location       = 'c:/bin/chocolatey',
   $chocolatey_packages_source   = 'https://chocolatey.org/api/v2/package/chocolatey/',
+  $temp_path                    = 'c:/temp',
 
 ){
 
-  $chocolatey_binary_temp_path  = 'c:/temp'
+  # Compose the binary path
+  $chocolatey_binary_path = "$temp_path/chocolatey-$chocolatey_version.nupkg"
 
-  file { $chocolatey_binary_temp_path:
-    ensure  => directory,
-  }
+  # Ensure the resource is created. This will avoid conflict with any previous
+  # definitions
+  ensure_resource('file', $temp_path, { 'ensure'  => 'directory' })
 
-  file { 'chocolatey_binary':
+  file { $chocolatey_binary_path:
     ensure  => file,
-    path    => "$chocolatey_binary_temp_path/chocolatey-$chocolatey_version.nupkg",
     source  => "puppet:///modules/tsw_chocolatey/chocolatey-$chocolatey_version.nupkg",
   }
 
@@ -23,15 +24,15 @@ class tsw_chocolatey (
     use_7zip                => false,
     log_output              => true,
     # chocolatey_download_url => "${chocolatey_download_url_base}/packages/chocolatey-${chocolatey_version}.nupkg",
-    chocolatey_download_url => "file:///$chocolatey_binary_temp_path/chocolatey-$chocolatey_version.nupkg",
-    require                 => File['chocolatey_binary'],
+    chocolatey_download_url => "file:///$chocolatey_binary_path",
+    require                 => File[$chocolatey_binary_path],
   }
 
-  # chocolateysource { 'chocolatey':
-  #   ensure   => present,
-  #   location => $chocolatey_packages_source,
-  #   priority => 1,
-  # }
+  chocolateysource { 'chocolcatey':
+    ensure   => present,
+    location => $chocolatey_packages_source,
+    priority => 1,
+  }
 
   # Cache location should be configured
   # chocolateyconfig {'cachelocation':
